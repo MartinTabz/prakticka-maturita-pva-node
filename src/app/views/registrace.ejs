@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Registrace</title>
+
+		<script src="/js/lib/jquery.js"></script>
+		<script src="/js/registrace.js"></script>
+	</head>
+	<body>
+		<h1>Registrace</h1>
+
+		<div>
+			<input type="text" id="jmeno" placeholder="Jméno..." /><br />
+			<input type="password" id="heslo" placeholder="Heslo..." /><br />
+			<input
+				type="password"
+				id="heslo_kontrola"
+				placeholder="Heslo pro kontrolu..."
+			/><br />
+			<button id="registrovat">Registrovat se</button>
+			<span id="hlaseni" style="color: red"></span>
+		</div>
+		<a href="/index">Zpět domů</a>
+	</body>
+</html>
