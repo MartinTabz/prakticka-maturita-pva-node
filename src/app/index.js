@@ -22,6 +22,9 @@ const db = new jsondb(
 	path.join(__dirname, "..", "..", "data", "uzivatele.json")
 );
 
+const notesDb = new jsondb(
+	path.join(__dirname, "..", "..", "data", "poznamky.json")
+);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -110,7 +113,20 @@ app.get("/odhlasit", (dotaz, odpoved) => {
 	});
 });
 
+app.get("/poznamky", (dotaz, odpoved) => {
+	if (!dotaz.session.uzivatel) {
+		return odpoved.redirect("/prihlaseni");
+	}
 
+	const vsechnyPoznamky = notesDb.JSON();
+	const poznamkyUzivatele = Object.values(vsechnyPoznamky).filter(
+		(poznamka) => poznamka.uzivatel === dotaz.session.uzivatel
+	);
+
+	return odpoved.render("poznamky", {
+		uzivatel: dotaz.session.uzivatel,
+		poznamky: poznamkyUzivatele,
+	});
 });
 
 module.exports = app;

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="cs">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<title>Poznámky</title>
+	</head>
+	<body>
+		<h1>Poznámky uživatele <b><%= uzivatel %></b></h1>
+		<% if (poznamky.length > 0) { %>
+		<section>
+			<% poznamky.forEach(function(poznamka) { %>
+			<div>
+				<hr />
+				<strong>Nadpis:</strong> <%= poznamka.nadpis %><br />
+				<strong>Text:</strong> <%= poznamka.text %><br />
+				<strong>Vytvořeno:</strong> <%= poznamka.vytvoreno %><br />
+				<strong>Důležité:</strong> <%= poznamka.dulezite ? 'Ano' : 'Ne' %>
+			</div>
+			<% }); %>
+		</section>
+		<% } else { %>
+		<p>Uživatel nemá žádné poznámky.</p>
+		<% } %>
+	</body>
+</html>
