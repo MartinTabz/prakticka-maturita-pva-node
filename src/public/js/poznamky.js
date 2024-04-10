@@ -1,5 +1,6 @@
 $(document).ready(() => {
 	$("#vytvorit-poznamku").click(vytvoritPoznamku);
+	$(".odstranit-poznamku").click(odstranitPoznamku);
 });
 
 function vytvoritPoznamku() {
@@ -31,4 +32,27 @@ function vytvoritPoznamku() {
 				}
 			});
 	}
+}
+
+function odstranitPoznamku() {
+	let id = $(this).data("id");
+
+	fetch("/poznamky", {
+		method: "DELETE",
+		headers: {
+			"Content-type": "application/json",
+			Accept: "application/json",
+		},
+		body: JSON.stringify({
+			id: id,
+		}),
+	})
+		.then((odpoved) => odpoved.json())
+		.then((reakce) => {
+			if (!reakce.uspech) {
+				$("#hlaseni").html(reakce.hlaseni);
+			} else {
+				location.reload();
+			}
+		});
 }

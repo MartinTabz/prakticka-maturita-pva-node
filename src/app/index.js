@@ -99,7 +99,7 @@ app.post("/prihlasit", (dotaz, odpoved) => {
 app.get("/profil", (dotaz, odpoved) => {
 	if (!dotaz.session.uzivatel) {
 		return odpoved.redirect("/prihlaseni");
-	}
+	}	
 
 	return odpoved.render("profil", {
 		uzivatel: dotaz.session.uzivatel,
@@ -159,6 +159,31 @@ app.post("/poznamky", (dotaz, odpoved) => {
 		dulezite: dulezite,
 		uzivatel: dotaz.session.uzivatel,
 	});
+
+	return odpoved.json({
+		uspech: true,
+		hlaseni: "OK",
+	});
+});
+
+app.delete("/poznamky", (dotaz, odpoved) => {
+	if (!dotaz.session.uzivatel) {
+		return odpoved.json({
+			uspech: false,
+			hlaseni: "Není přihlášený uživatel!",
+		});
+	}
+
+	let id = dotaz.body.id;
+
+	if (!id) {
+		return odpoved.json({
+			uspech: false,
+			hlaseni: "Chybí ID poznámky k smazání",
+		});
+	}
+
+	notesDb.delete(id);
 
 	return odpoved.json({
 		uspech: true,

@@ -20,6 +20,7 @@
 				<strong>Text:</strong> <%= poznamka.text %><br />
 				<strong>Vytvořeno:</strong> <%= poznamka.vytvoreno %><br />
 				<strong>Důležité:</strong> <%= poznamka.dulezite ? 'Ano' : 'Ne' %>
+				<button class="odstranit-poznamku" data-id="<%= poznamka.id %>">Smazat</button>
 			</div>
 			<% }); %>
 		</section>
