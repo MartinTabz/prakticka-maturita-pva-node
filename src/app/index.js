@@ -99,7 +99,7 @@ app.post("/prihlasit", (dotaz, odpoved) => {
 app.get("/profil", (dotaz, odpoved) => {
 	if (!dotaz.session.uzivatel) {
 		return odpoved.redirect("/prihlaseni");
-	}	
+	}
 
 	return odpoved.render("profil", {
 		uzivatel: dotaz.session.uzivatel,
@@ -184,6 +184,45 @@ app.delete("/poznamky", (dotaz, odpoved) => {
 	}
 
 	notesDb.delete(id);
+
+	return odpoved.json({
+		uspech: true,
+		hlaseni: "OK",
+	});
+});
+
+app.delete("/profil", (dotaz, odpoved) => {
+	if (!dotaz.session.uzivatel) {
+		return odpoved.json({
+			uspech: false,
+			hlaseni: "Není přihlášený uživatel!",
+		});
+	}
+
+	let heslo = dotaz.body.heslo;
+	let uzivatel = db.get(dotaz.session.uzivatel);
+
+	if (!bcrypt.compareSync(heslo, uzivatel.heslo)) {
+		return odpoved.json({
+			uspech: false,
+			hlaseni: "Chybné heslo!",
+		});
+	}
+
+	const vsechnyPoznamky = notesDb.JSON();
+	const poznamkyUzivatele = Object.values(vsechnyPoznamky).filter(
+		(poznamka) => poznamka.uzivatel === dotaz.session.uzivatel
+	);
+
+	console.log(poznamkyUzivatele)
+
+	for (let i = 0; i < poznamkyUzivatele.length; i++) {
+		notesDb.delete(poznamkyUzivatele[i].id);
+	}
+
+	db.delete(dotaz.session.uzivatel);
+
+	dotaz.session.destroy();
 
 	return odpoved.json({
 		uspech: true,
