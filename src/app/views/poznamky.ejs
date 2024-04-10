@@ -5,6 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<title>Poznámky</title>
+
+		<script src="/js/lib/jquery.js"></script>
+		<script src="/js/poznamky.js"></script>
 	</head>
 	<body>
 		<h1>Poznámky uživatele <b><%= uzivatel %></b></h1>
@@ -23,5 +26,16 @@
 		<% } else { %>
 		<p>Uživatel nemá žádné poznámky.</p>
 		<% } %>
+
+		<br />
+
+		<h2>Vytvořit novou poznámku</h2>
+		<div>
+			<input type="text" id="nadpis" placeholder="Nadpis..." /><br />
+			<textarea id="text" placeholder="Text..."></textarea><br />
+			<span><input type="checkbox" id="dulezite" /> Důležité</span><br />
+			<button id="vytvorit-poznamku">Vložit</button>
+			<span id="hlaseni" style="color: red"></span>
+		</div>
 	</body>
 </html>

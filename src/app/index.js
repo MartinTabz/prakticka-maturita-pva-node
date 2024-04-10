@@ -3,6 +3,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const jsondb = require("simple-json-db");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 
@@ -126,6 +127,42 @@ app.get("/poznamky", (dotaz, odpoved) => {
 	return odpoved.render("poznamky", {
 		uzivatel: dotaz.session.uzivatel,
 		poznamky: poznamkyUzivatele,
+	});
+});
+
+app.post("/poznamky", (dotaz, odpoved) => {
+	if (!dotaz.session.uzivatel) {
+		return odpoved.json({
+			uspech: false,
+			hlaseni: "Není přihlášený uživatel!",
+		});
+	}
+
+	let nadpis = dotaz.body.nadpis;
+	let text = dotaz.body.text;
+	let dulezite = dotaz.body.dulezite;
+
+	if (!nadpis) {
+		return odpoved.json({
+			uspech: false,
+			hlaseni: "Chybí nadpis",
+		});
+	}
+
+	const id = uuidv4();
+
+	notesDb.set(id, {
+		id: id,
+		nadpis: nadpis,
+		text: text || "",
+		vytvoreno: new Date(),
+		dulezite: dulezite,
+		uzivatel: dotaz.session.uzivatel,
+	});
+
+	return odpoved.json({
+		uspech: true,
+		hlaseni: "OK",
 	});
 });
 

@@ -1,23 +1,10 @@
 {
-	"1": {
-		"nadpis": "Naprogramovat prihlaseni",
-		"text": "Implemetnovat funkci pro umozneni prihlaseni",
-		"vytvoreno": "2024-03-16T14:24:32.378Z",
+	"ba5fb565-66b5-4ca6-8beb-2f20dc1f71c5": {
+		"id": "ba5fb565-66b5-4ca6-8beb-2f20dc1f71c5",
+		"nadpis": "Umýt podlahu",
+		"text": "Pokus",
+		"vytvoreno": "2024-04-10T10:54:55.081Z",
 		"dulezite": false,
 		"uzivatel": "martin"
-	},
-	"2": {
-		"nadpis": "Naprogramovat registrace",
-		"text": "Implemetnovat funkci pro umozneni registrace noveho uzivatele",
-		"vytvoreno": "2024-03-15T14:24:32.378Z",
-		"dulezite": true,
-		"uzivatel": "martin"
-	},
-	"3": {
-		"nadpis": "Naprogramovat registrace",
-		"text": "Implemetnovat funkci pro umozneni registrace noveho uzivatele",
-		"vytvoreno": "2024-03-15T14:24:32.378Z",
-		"dulezite": true,
-		"uzivatel": "michal"
 	}
 }
